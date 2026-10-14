@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Connect Naija - LIVE</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>body{background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont} .card{background:#121212;border:1px solid #222;border-radius:18px} .btn-grad{background:linear-gradient(135deg,#00F5FF 0%,#7C3AED 100%);color:#000;font-weight:800}</style>
+</head>
+<body>
+<div id="authPage" class="min-h-screen flex flex-col items-center justify-center p-6">
+<h1 class="text-5xl font-black">CAMPUS<br><span style="background:linear-gradient(135deg,#00F5FF,#7C3AED);-webkit-background-clip:text;-webkit-text-fill-color:transparent">CONNECT</span></h1>
+<p class="text-green-400 font-bold mt-3 tracking-widest text-sm">NAIJA • 97 UNIVERSITIES LIVE</p>
+<div class="w-full max-w-sm space-y-3 mt-8">
+<button id="googleBtn" class="w-full bg-white text-black py-4 rounded-full font-bold flex items-center justify-center gap-2"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" class="w-5 h-5"> Continue with Google - Real</button>
+<input id="emailIn" type="email" placeholder="you@unizik.edu.ng" class="w-full bg-zinc-900 border border-zinc-800 rounded-full px-6 py-4 outline-none text-sm">
+<input id="passIn" type="password" placeholder="Password 6+ chars" class="w-full bg-zinc-900 border border-zinc-800 rounded-full px-6 py-4 outline-none text-sm">
+<input id="uniIn" list="unis" placeholder="Your University - UNIZIK" class="w-full bg-zinc-900 border border-zinc-800 rounded-full px-6 py-4 outline-none text-sm">
+<datalist id="unis"><option value="UNIZIK"><option value="UNILAG"><option value="UNIPORT"><option value="OAU"><option value="UNIBEN"><option value="COVENANT"></datalist>
+<button id="emailBtn" class="w-full py-4 rounded-full" style="background:linear-gradient(135deg,#00F5FF,#7C3AED);font-weight:800;color:#000">Create Account / Login</button>
+<p id="authError" class="text-red-400 text-xs text-center"></p>
+</div>
+</div>
+<div id="appPage" class="hidden min-h-screen pb-24"><header class="p-4 flex justify-between border-b border-zinc-900"><h2 class="font-black text-xl">Campus Feed 🇳🇬</h2><button id="logoutBtn" class="text-zinc-500 text-xs">Logout</button></header><div class="p-4"><div class="card p-4 flex gap-3"><img id="composerAvatar" class="w-10 h-10 rounded-full" src="https://i.pravatar.cc/100"><textarea id="postInput" placeholder="What's happening?" class="flex-1 bg-transparent outline-none text-sm" rows="2"></textarea><button onclick="createTextPost()" class="px-7 py-2 rounded-full font-bold" style="background:linear-gradient(135deg,#00F5FF,#7C3AED);color:#000">Post</button></div><div id="feedList" class="mt-4 space-y-3"></div></div></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyBGdCZ6eDBVs1cN77MC2mvPn7ELi8NtIho",
+  authDomain: "campus-connect-naija.firebaseapp.com",
+  projectId: "campus-connect-naija",
+  storageBucket: "campus-connect-naija.firebasestorage.app",
+  messagingSenderId: "412023440397",
+  appId: "1:412023440397:web:501663ddd0a49cea7e8144",
+  measurementId: "G-449QDKM6E8"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+document.getElementById('googleBtn').onclick = async () => { try{ await signInWithPopup(auth, provider); } catch(err){ document.getElementById('authError').innerText = err.message + " | FIX: Add tiiny.site to Firebase Auth > Authorized domains"; } };
+document.getElementById('emailBtn').onclick = async () => { const email=document.getElementById('emailIn').value; const pass=document.getElementById('passIn').value; try{ await signInWithEmailAndPassword(auth,email,pass); } catch{ try{ await createUserWithEmailAndPassword(auth,email,pass); } catch(e){ document.getElementById('authError').innerText = e.message; } } };
+onAuthStateChanged(auth, user=>{ if(user){ document.getElementById('authPage').classList.add('hidden'); document.getElementById('appPage').classList.remove('hidden'); const photo=user.photoURL||`https://i.pravatar.cc/100?u=${user.uid}`; document.getElementById('composerAvatar').src=photo; loadFeed(); } });
+document.getElementById('logoutBtn').onclick = ()=>signOut(auth).then(()=>location.reload());
+window.createTextPost = async () => { const text=document.getElementById('postInput').value.trim(); if(!text) return; await addDoc(collection(db,"posts"),{text, uid:auth.currentUser.uid, email:auth.currentUser.email, photo:auth.currentUser.photoURL||"", uni:document.getElementById('uniIn').value||"UNIZIK", createdAt:serverTimestamp()}); document.getElementById('postInput').value=""; };
+function loadFeed(){ const q=query(collection(db,"posts"),orderBy("createdAt","desc")); onSnapshot(q, snap=>{ const list=document.getElementById('feedList'); list.innerHTML=""; if(snap.empty){ list.innerHTML=`<p class="text-center py-10 text-zinc-500 text-xs">No posts yet - Be first! 🔥</p>`; return;} snap.forEach(d=>{ const p=d.data(); const time=p.createdAt?new Date(p.createdAt.seconds*1000).toLocaleString():"now"; list.innerHTML+=`<div class="card p-4"><div class="flex gap-2 items-center"><img src="${p.photo||'https://i.pravatar.cc/100'}" class="w-8 h-8 rounded-full"><div><p class="text-xs font-bold">${p.email?p.email.split('@')[0]:'Student'}</p><p class="text-[10px] text-zinc-500">${p.uni||'Campus'} • ${time}</p></div></div><p class="mt-3 text-sm">${p.text||''}</p></div>`; }); }); }
+</script>
+</body>
+</html>
