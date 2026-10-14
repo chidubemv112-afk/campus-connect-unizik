@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Connect - UNIZIK</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#0a3d8f;--blue2:#144fb0;--yellow:#ffcc00;--bg:#f6f8ff;--card:#ffffff;--text:#0f172a;--muted:#64748b}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+body{background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:18px 16px 26px;position:sticky;top:0;z-index:10;border-radius:0 0 24px 24px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:800;font-size:20px}
+.logo span{color:var(--yellow)}
+.badge{background:rgba(255,255,255,.15);padding:6px 12px;border-radius:999px;font-size:12px}
+.hero{margin-top:18px}
+.hero h1{font-size:28px;line-height:1.1;font-weight:800}
+.hero p{margin-top:8px;opacity:.85;font-size:14px;line-height:1.5}
+.search{margin-top:16px;background:#fff;border-radius:16px;display:flex;align-items:center;padding:12px 14px;gap:10px}
+.search input{border:none;outline:none;flex:1;font-size:14px}
+.search span{background:var(--yellow);padding:8px 14px;border-radius:12px;font-weight:700;font-size:13px;color:#111}
+.wrap{padding:16px;max-width:720px;margin:0 auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.card{background:var(--card);border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(15,23,42,.06);border:1px solid #eef2ff}
+.card h3{font-size:15px;font-weight:700}
+.card p{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+.card .icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:22px;margin-bottom:10px}
+.card.blue .icon{background:#e0ebff}
+.card.yellow .icon{background:#fff5cc}
+.card.green .icon{background:#dcfce7}
+.card.pink .icon{background:#fce7f3}
+.section{margin-top:24px}
+.section-head{display:flex;justify-content:space-between;align-items:center}
+.section-head h2{font-size:18px;font-weight:800}
+.feed{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+.post{background:#fff;border-radius:18px;padding:14px;border:1px solid #eef2ff;display:flex;gap:12px}
+.avatar{width:44px;height:44px;border-radius:999px;background:linear-gradient(135deg,#0a3d8f,#60a5fa);display:grid;place-items:center;color:#fff;font-weight:800;flex-shrink:0}
+.post h4{font-size:14px}
+.post .meta{font-size:11px;color:var(--muted)}
+.post p{font-size:13px;margin-top:6px;line-height:1.5}
+.tag{display:inline-block;margin-top:8px;background:#f1f5f9;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:700;color:var(--blue)}
+.btn{width:100%;margin-top:20px;background:var(--blue);color:#fff;border:none;padding:16px;border-radius:16px;font-weight:800;font-size:15px}
+.footer{text-align:center;padding:24px;color:var(--muted);font-size:11px}
+</style>
+</head>
+<body>
+<header>
+<div class="top"><div class="logo">CAMPUS <span>CONNECT</span></div><div class="badge">UNIZIK • Awka</div></div>
+<div class="hero"><h1>Everything UNIZIK,<br>in one place.</h1><p>Buy & sell, find hostels, lost items, past questions & campus gist — built for UNIZIK students.</p><div class="search"><span>🔍</span><input id="searchInput" placeholder="Search items, hostels, gist..." oninput="filterPosts()"><span>Search</span></div></div>
+</header>
+<div class="wrap">
+<div class="grid">
+<div class="card blue"><div class="icon">🛒</div><h3>Marketplace</h3><p>Buy & sell books, gadgets, clothes inside school. No scam.</p></div>
+<div class="card yellow"><div class="icon">🏠</div><h3>Hostel Finder</h3><p>Verified lodges in Ifite, Amansea, Temp Site.</p></div>
+<div class="card green"><div class="icon">📚</div><h3>Past Questions</h3><p>GST, departmental PQ, with answers. Download free.</p></div>
+<div class="card pink"><div class="icon">🔍</div><h3>Lost & Found</h3><p>Lost ID card, keys, AirPods? Post here fast.</p></div>
+</div>
+<div class="section">
+<div class="section-head"><h2>🔥 Campus Gist</h2><span style="font-size:12px;color:#0a3d8f;font-weight:700">Live Now</span></div>
+<div class="feed" id="feed">
+<div class="post" data-text="ifite hostel lodge"><div class="avatar">C</div><div><h4>Chidubem • Engineering</h4><div class="meta">2m ago • Ifite</div><p>Clean self-contain at Ifite road, close to school gate. Water dey always. 180k. Who needs? DM</p><span class="tag">🏠 HOSTEL</span></div></div>
+<div class="post" data-text="gst 101 past question"><div class="avatar">A</div><div><h4>Ada • Year 1</h4><div class="meta">15m ago • GST</div><p>Abeg who get GST 101 past question with answers? Exam is next week</p><span class="tag">📚 PAST QUESTION</span></div></div>
+<div class="post" data-text="lost id card"><div class="avatar">K</div><div><h4>Kene • Management</h4><div class="meta">1h ago • Faculty</div><p>Lost UNIZIK ID card around Admin block today. Name: Okoro Kenechukwu.</p><span class="tag">🔍 LOST & FOUND</span></div></div>
+<div class="post" data-text="power bank iphone"><div class="avatar">J</div><div><h4>Jay • Computer Sci</h4><div class="meta">3h ago • Marketplace</div><p>Fairly used Oraimo 20k power bank + iPhone 11 case for sale. 15k both.</p><span class="tag">🛒 MARKETPLACE</span></div></div>
+</div>
+<button class="btn" onclick="alert('Campus Connect UNIZIK - Post feature coming!')">+ Post Something</button>
+</div>
+<div class="footer">Built for UNIZIK students • campus-connect-unizik.pages.dev<br>Version 2.0 - Fixed (No more .txt error)</div>
+</div>
+<script>
+function filterPosts(){
+  const q=document.getElementById('searchInput').value.toLowerCase();
+  document.querySelectorAll('.post').forEach(p=>{
+    const t=(p.getAttribute('data-text')+p.innerText).toLowerCase();
+    p.style.display=t.includes(q)?'flex':'none';
+  });
+}
+</script>
+</body>
+</html>
