@@ -1,0 +1,62 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Privacy Policy - Campus Connect UNIZIK</title><style>body{font-family:system-ui;max-width:800px;margin:0 auto;padding:20px;line-height:1.6;color:#111}h1{font-weight:900}h2{margin-top:24px;font-weight:800;border-bottom:2px solid #ffcc00;padding-bottom:4px}b{font-weight:800}</style></head><body>
+<h1>Campus Connect UNIZIK - Privacy Policy, Terms & Ad Policy</h1>
+<p><b>Last Updated: May 13, 2026 | App: campus-connect-unizik | Developer: Campus Connect Team, Nnamdi Azikiwe University</b></p>
+
+<h2>1. Privacy Policy</h2>
+<p>We respect your privacy. Campus Connect is a student community app for UNIZIK.</p>
+<p><b>Data We Collect:</b><br>
+- Email, Display Name, Profile Photo (via Firebase Auth)<br>
+- Posts: Text, Images (Base64), Videos (Base64) you upload<br>
+- Marketplace items: Price, Location<br>
+- Chat messages (encrypted in transit via HTTPS)<br>
+- Device: IP, device type for security<br>
+- No location tracking in background.</p>
+<p><b>How We Use:</b> To show your posts to other students, secure login, prevent spam, marketplace. We NEVER sell your data.</p>
+<p><b>Storage:</b> All data stored securely in Google Firebase Firestore (Google Cloud) - encrypted at rest and in transit. Images/videos stored as secure Base64 in Firestore, not third-party bucket.</p>
+<p><b>Your Rights (NDPA Nigeria + GDPR):</b> You can delete your account and all posts anytime: Profile > Log Out > Contact us at campusconnect.unizik@gmail.com to delete data within 48 hours.</p>
+
+<h2>2. Ad Privacy & Protection Policy (For AdMob / Google Ads)</h2>
+<p>We may show ads to keep app free.</p>
+<p><b>Ad Partners:</b> Google AdMob, Google AdSense may collect Advertising ID, device info to show personalized ads. You can opt-out:</p>
+<p>Android: Settings > Privacy > Ads > Delete Advertising ID<br>iOS: Settings > Privacy > Tracking > Off</p>
+<p><b>We DO NOT:</b><br>
+- Show ads to users under 18 for gambling, alcohol, adult content<br>
+- Click our own ads<br>
+- Place ads near post buttons (no accidental clicks)<br>
+- Collect sensitive data for ads</p>
+<p><b>Ad Safety:</b> All ads reviewed by Google. If you see bad ad, report to campusconnect.unizik@gmail.com</p>
+
+<h2>3. Terms and Conditions</h2>
+<p><b>By using Campus Connect, you agree:</b></p>
+<p>1. You are UNIZIK student or alumni, 16+ years.<br>
+2. No posting: nudity, drugs, scam, hate speech, exam leak, impersonation.<br>
+3. Marketplace: Sell only legal items. Verify hostel before payment. We are not liable for transactions.<br>
+4. You own your content, but give us license to show it in app.<br>
+5. We can remove posts that violate rules.<br>
+6. No spam, no fake accounts.<br>
+7. Account ban after 3 violations.</p>
+
+<h2>4. Security & Encryption</h2>
+<p>- All traffic HTTPS/TLS 1.3<br>
+- Firebase Auth: Passwords hashed by Google, we never see it<br>
+- Firestore Rules: Only authenticated users can post (allow read, write: if request.auth != null)<br>
+- Base64 media encrypted at rest<br>
+- Chat: Encrypted in transit (HTTPS), stored encrypted<br>
+- No public storage bucket - secure by design like Telegram/Snapchat</p>
+
+<h2>5. System Backup & Data Protection</h2>
+<p><b>Backup:</b> Daily automated backup via Firebase (Google Cloud) in us-central1. 30-day retention. Point-in-time recovery.<br>
+<b>Disaster Recovery:</b> If data lost, restore from Firebase backup within 24h.<br>
+<b>User Backup:</b> Your posts are backed up in cloud. If you delete app, data remains until you request deletion.<br>
+<b>Server: Cloudflare Pages + Firebase = 99.9% uptime</b></p>
+
+<h2>6. Children's Privacy</h2>
+<p>App not for children under 16. If you are under 16, do not use.</p>
+
+<h2>7. Contact & Deletion</h2>
+<p>Email: campusconnect.unizik@gmail.com<br>
+University: Nnamdi Azikiwe University, Awka<br>
+To delete data: Email us with subject "DELETE MY DATA" - we delete in 48h.</p>
+
+<p style="margin-top:30px;background:#ffcc00;padding:12px;border-radius:12px;font-weight:800">This policy complies with Google Play, AdMob, Nigeria NDPA 2023, GDPR.</p>
+</body></html>
